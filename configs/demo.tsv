@@ -1,2 +1,2 @@
 Job	DataDir	R1	R2	RU	Platform	Tissue	OutDir	Memory	Thread	Description
-Demo.v1	./inputs/10x3v1	CGCTATCC_L001_R1.fastq.gz	CGCTATCC_L001_R2.fastq.gz		10x3-v1	bone_marrow, pbmc	./outputs/demo	48	4	
+Demo.v1	./inputs/10x3v1	CGCTATCC_L001_R1.fastq.gz	CGCTATCC_L001_R2.fastq.gz		10x3-v1	bone_marrow, pbmc	./outputs/	48	4	
