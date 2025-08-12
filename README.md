@@ -1,4 +1,4 @@
-# Call TE 
+# scTEfinder 
 __(snakemake pipeline)__
 
 This pipeline is designed to call TEs from a set of fq.gz reads.
@@ -70,3 +70,4 @@ _注: default.tsv的作用是 仅在job.tsv缺失某项信息时进行默认值�
 | 3.scTE | scTE输出 csv.gz |
 | benchmark | 每个步骤详细的耗时及CPU占用, 若需要可以查看优化资源申请 |
 | log | 日志, 包含out和err两种, 记录标准输出和错误 |
+
