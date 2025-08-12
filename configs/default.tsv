@@ -1,2 +1,2 @@
 DataDir	Postfix	Platform	RefGenome	RefGenomeIndex	CellTypistModel	OutDir	Memory	Thread	CondaEnv	Description
-./inputs/10x3v1	fastq.gz	10x3-v1	./data/genome/CR-GRCh38	./data/genomeIndex/hg38.exclusive.idx	./data/Atlas.Model	./outputs	48	4	/xtdisk/jiangl_group/wangqifei/hu/envTool/miniEnv3/envs/te	Paired fastq to TE calling job
+./inputs/10x3v1	fastq.gz	10x3-v1	./data/genome/CR-GRCh38	./data/genomeIndex/hg38.exclusive.idx	./data/Atlas.Model	./outputs	48	4	/path/to/envs/sceasy	Paired fastq to TE calling job
