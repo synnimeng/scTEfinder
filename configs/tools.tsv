@@ -1,7 +1,7 @@
 tool	path
-STAR	/xtdisk/jiangl_group/wangqifei/hu/envTool/miniEnv3/envs/te/bin/STAR
-seqkit	/xtdisk/jiangl_group/wangqifei/hu/envTool/miniEnv3/envs/te/bin/seqkit
-Rscript	/xtdisk/jiangl_group/wangqifei/hu/envTool/miniEnv3/envs/te/bin/Rscript
-bcsubset	/xtdisk/jiangl_group/wangqifei/hu/projects/smkPipelines/callTE/data/softwares/bcsubset/bcsubset
-scTE	/xtdisk/jiangl_group/wangqifei/hu/envTool/miniEnv3/envs/te/bin/scTE
-python	/xtdisk/jiangl_group/wangqifei/hu/envTool/miniEnv3/envs/te/bin/python
+STAR	/path/to/STAR
+seqkit	/path/to/seqkit
+Rscript	/path/to/Rscript
+bcsubset	/path/to/bcsubset
+scTE	/path/to/scTE
+python	/path/to/python
