@@ -10,24 +10,25 @@ export PATH="${TE_ENV}/bin:$PATH"
 
 SMK='/path/to/snakemake'
 
-# 查看流程图, 不实际运行
+# Display the pipeline without actually running anything
 #$SMK --config job=configs/test.tsv -j 3 --dryrun
 
-# 实际运行  # -j {3} 代表一次性只允许并行跑 {3} 个任务, 根据 资源申请 及 最大单任务耗费 而灵活变动
+# Run the pipeline  
+# -j 2 means allow at most 2 concurrent jobs; adjust according to resource limits
 $SMK --config job=configs/test2.tsv -j 2 --unlock
 $SMK --config job=configs/test2.tsv -j 2
 
-# 查看所有支持的pipeline
+# List all available pipeline target rules
 # $SMK --config job=configs/demo.tsv --list-target-rules
 
 #<<EOF
-# 仅运行 Anno, 并刷新存在, 导致后续输出下次要 更新重跑
-#$SMK --config job=configs/10x3v1.r3.tsv -j 3 --dryrun --allowed-rules RunAnnoOnly
+# Run only the "RunAnnoOnly" rule, forcing refresh of existing outputs
+#$SMK --config job=configs/demo.tsv -j 3 --dryrun --allowed-rules RunAnnoOnly
 
-# snakemake 只考虑文件 时间戳, 而不考虑代码更新进行rerun
-#$SMK --config job=configs/10x3v1.r3.tsv -j 3 --dryrun --rerun-triggers mtime
+# Snakemake considers only file timestamps; code changes do not trigger re-run
+#$SMK --config job=configs/demo.tsv -j 3 --dryrun --rerun-triggers mtime
 
-# 修改输出 时间戳
+# Manually change a file's timestamp In Linux
 #stat file
 #touch -t 202503010113.49 file
 #EOF
