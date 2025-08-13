@@ -61,6 +61,9 @@ Please refer to the documentation: [MANUAL.md](https://github.com/synnimeng/scTE
 ### Additional notes:
 
 Large files in inputs and data are stored on Google Drive; please download and extract them locally with:
+
+```shell
 tar -zxf *.tar.gz
+```
 
 
