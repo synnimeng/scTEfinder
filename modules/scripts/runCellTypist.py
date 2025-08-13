@@ -7,7 +7,7 @@
 ╰───────────────────────────────────────╯ 
 │ Description:
     CellTypist Classify with trained model
-""" # [By: Yiwen Hu]
+""" # [By: Yiwen Hu & Synni Meng]
 
 # region |- Tissue Only Celltype Dict -|
 LIMIT_TISSUE = {
@@ -87,10 +87,10 @@ print("Args:\n",
 @contextmanager
 def Duration(name='Job-Name', unit='s'):
     """
-    上下文管理器, 输出对应代码块的执行时间
+    Context manager that prints the execution time of the corresponding code block
     Args:
-        name: 任务名称 自定义
-        unit: 时间对应的单位 h / m / s
+        name: Custom task name
+        unit: Time unit—h (hours), m (minutes), or s (seconds)
     Returns:
 
     """
