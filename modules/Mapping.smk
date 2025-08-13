@@ -6,8 +6,8 @@
 │ Mapping.smk   2025/03/01/-17:18 
 ╰───────────────────────────────────────╯ 
 │ Description:
-    对输入 各平台 fq 配对文件 作mapping
-""" # [By: HuYw]
+    Map paired FASTQ files from various platforms to the reference genome
+""" # [By: Scripts-synni Meng, SMK-yiwen Hu]
 
 # region |- Import -|
 from types import SimpleNamespace
