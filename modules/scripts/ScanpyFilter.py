@@ -17,14 +17,14 @@ import argparse
 # endregion
 
 
-# 解析参数
+
 parser = argparse.ArgumentParser(description="Process STAR Solo output for Scanpy Filter analysis.")
 parser.add_argument("-i", "--input", required=True, type=str, help="Path to the STAR Solo output directory.")
 parser.add_argument("-o", "--outdir", required=True, type=str, help="Output dir for the processed AnnData object (h5ad format).")
 parser.add_argument("-j", "--job", required=True, type=str, help="Job name for output files.")
 parser.add_argument("-c", "--core", required=False, default=4, type=int, help="n CPU core can use.")
 args = parser.parse_args()
-# 设置并行任务数量
+# n job / core
 sc.settings.n_jobs = args.core
 
 def readSTARsolo(path="."):
@@ -40,7 +40,7 @@ def readSTARsolo(path="."):
 # 读取 STAR solo out
 adata = readSTARsolo(args.input)
 adata.var_names_make_unique()
-# scanpy输出的统计在 UMI: total_counts; nGene: n_genes_by_counts;
+# scanpy output Summary UMI: total_counts; nGene: n_genes_by_counts;
 adata.var["mt"] = adata.var_names.str.startswith("MT-")
 sc.pp.calculate_qc_metrics(
     adata, qc_vars=["mt"], inplace=True, log1p=False
