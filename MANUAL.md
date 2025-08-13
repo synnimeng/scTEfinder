@@ -26,7 +26,7 @@ Directory function description of this project
 ---
 
 tools.tsv [工具文件配置项]
-| 列 | 释义 | 其他 |
+| column | meaning | others |
 | --- | --- | --- |
 | tool | tool name | must be consistent with the default "tools.tsv" file, cannot be changed |
 | path | tool access path | configure according to your environment; when setting up/migrating the environment, this usually needs to be reconfigured |
@@ -64,11 +64,11 @@ Description of output directory items
 
 | dir | description |
 | --- | --- |
-| 0.preFq | Due to the existence of v1 files, a unified fq preprocessing step is performed; if no special processing is needed, the pipeline will use ln -s to create soft links, so be careful not to delete the source fq.gz, this output is not a full copy, for v1 data an isalign.flag will be output to mark whether the seqID is aligned |
-| 1.Map | STAR mapping的输出路径 |
-| 2.Filter | 对STAR输出基因表达矩阵的质控过滤输出路径, 提取高质量细胞barcode, 也包含celltypist的标注结果 |
-| 3.scTE | scTE输出 csv.gz |
-| benchmark | 每个步骤详细的耗时及CPU占用, 若需要可以查看优化资源申请 |
-| log | 日志, 包含out和err两种, 记录标准输出和错误 |
+| 0.preFq | Due to the existence of v1 files, a unified fq preprocessing step is performed; if no special processing is needed, the pipeline will use ln -s to create soft links, __so be careful not to delete the source fq.gz, this output is not a full copy__, for v1 data an isalign.flag will be output to mark whether the seqID is aligned |
+| 1.Map | STAR mapping output path |
+| 2.Filter | Quality control filtering output path for the STAR output gene expression matrix, extracting high-quality cell barcodes, and also includes celltypist annotation results |
+| 3.scTE | scTE output csv.gz |
+| benchmark | Detailed time and CPU usage for each step, can be checked if resource requests need to be optimized |
+| log | logs, including out and err, recording stdout and stderr |
 
 
