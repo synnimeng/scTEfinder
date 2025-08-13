@@ -6,8 +6,8 @@
 │ Snakefile   2025/03/03/-01:14 
 ╰───────────────────────────────────────╯ 
 │ Description:
-    处理 fq > TE 全流程, 支持模块运行
-""" # [By: HuYw]
+    Whole pipeline from FASTQ → TE analysis, supports modular execution
+""" # [By: ]
 
 # region |- Import -|
 from types import SimpleNamespace
@@ -23,8 +23,8 @@ def configset(config:dict, k:str, v):
 
 assert 'job' in config.keys(), \
 "Error: No config 'job' input, please use:\n'snakemake --config job=configs/job.tsv -j 2' to start a job!"
-configset(config, 'tool', 'configs/tools.tsv')  # 工具配置
-configset(config, 'default', 'configs/default.tsv')  # 默认值配置
+configset(config, 'tool', 'configs/tools.tsv')  # Tool configuration
+configset(config, 'default', 'configs/default.tsv')  # Default-value configuration
 # endregion
 
 
