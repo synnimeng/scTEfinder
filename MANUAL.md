@@ -1,59 +1,74 @@
-scTEfinder
-(Snakemake pipeline)
-This pipeline is designed to call transposable elements (TEs) from a set of fq.gz reads.
-Please check the running steps in runSMK.sh;
-scTE-Conda.sh provides a complete guide for setting up the runtime environment.
-Description
-Project directory structure and purpose
+# scTEfinder 
+__(snakemake pipeline)__
+
+This pipeline is designed to call TEs from a set of fq.gz reads.
+
+Please check the runSMK.sh script for execution steps
+scTE-Conda.sh provides complete steps for setting up the runtime environment
+
+## Description
+
+Directory function description of this project
+
+| dir | description |
+| --- | --- |
+| __configs__ | Configuration files required by the pipeline, __at least including tools.tsv & default.tsv & job configuration.tsv three types of configuration files__ |
+| __data__ | Bundled data needed by the pipeline, such as genomes, indices, bcsubset and other software |
+| __modules__ | Modular .smk scripts for the pipeline; the scripts folder under it contains tool scripts (py, R) | 
+| logs | Storage for log files; it is recommended to use cmd &> logs/task.log to save logs here |
+| inputs | Storage path for example input fq.gz files; your data can also be in other paths, __ignore__ |
+| outputs | Storage path for example output folders; your output can also be in other paths, __ignore__ |
+
+## Configs
+
+配置文件编写说明
+
+---
+
+tools.tsv [工具文件配置项]
+| 列 | 释义 | 其他 |
+| --- | --- | --- |
+| tool | tool name | must be consistent with the default "tools.tsv" file, cannot be changed |
+| path | tool access path | configure according to your environment; when setting up/migrating the environment, this usually needs to be reconfigured |
+
+---
+
+job.tsv & default.tsv [Task parameter configuration items]
+
+_Note: The role of default.tsv is to fill in default values only when an item is missing in job.tsv; only the items listed below that can be configured with default parameters will take effect in default.tsv_
+
+| column | meaning | 是否可配置默认参数 |
+| --- | --- | --- |
+| Job | task name, also the name of the output files |  |
+| DataDir | root directory of input files, for convenience of configuration, can be empty | √ |
+| R1 | R1 path [barcode], if DataDir is configured, it becomes "{DataDir}/{R1}"	 |  |
+| R2 | R2 path [read], if DataDir is configured, it becomes "{DataDir}/{R2}" |  |
+| RU | RU path [UMI], if DataDir is configured, it becomes "{DataDir}/{RU}" |  |
+| Prefix | __if R1,R2,RU are configured, this is invalid__, reads naming prefix, used to determine the input path "{DataDir}/{Prefix}_[R1/R2/RU].{Postfix}" for 2/3 kinds of inputs |  |
+| Postfix | __if R1,R2,RU are configured, this is invalid__, reads naming suffix, used to determine the input path "{DataDir}/{Prefix}_[R1/R2/RU].{Postfix}" for 2/3 kinds of inputs | √ |
+| Platform | data sequencing platform, supported parameters: 10x3-v1,10x3-v1.r3,10x3-v2,10x3-v3,10x5,10x5-v1,10x5-v2 | √ |
+| Tissue | tissue, used for celltypist annotation, supports multiple tissues, e.g. [bone_marrow, pbmc] or [bone_marrow pbmc] separated by "," or " ", supported parameters are the tissue dictionary key names inside celltypist | √ |
+| RefGenome | reference genome path (directory) | √ |
+| RefGenomeIndex | reference genome index path (file) | √ |
+| CellTypistModel | celltypist annotation model path (directory is enough) | √ |
+| OutDir | output directory for this task, the output folder will be at path "{OutDir}/{Job}" | √ |
+| Memory | memory parameter, passed to software that supports it | √ |
+| Thread | core/thread parameter, passed to software that supports it | √ |
+| CondaEnv | conda environment directory supporting sceasy's Seurat->H5ad conversion | √ |
+| Description | description of this task, usually can be empty | √ |
 
 
-Directory	Description
-configs	Configuration files required by the pipeline. At minimum, three files must be present: tools.tsv, default.tsv, and job.tsv
-data	Bundled reference data needed by the pipeline, e.g. genomes, indices, barcode subsets, etc.
-modules	Modular .smk scripts for the workflow. The scripts/ sub-directory contains utility scripts (Python, R)
-logs	Log-file storage. We recommend redirecting logs with cmd &> logs/task.log
-inputs	Example input fq.gz files. You may store your own data elsewhere—this path can be ignored.
-outputs	Example output folder. You may redirect outputs elsewhere—this path can be ignored.
-Configs
-How to write configuration files
-tools.tsv – Tool-path mapping
+## Outputs
+
+Description of output directory items
+
+| dir | description |
+| --- | --- |
+| 0.preFq | Due to the existence of v1 files, a unified fq preprocessing step is performed; if no special processing is needed, the pipeline will use ln -s to create soft links, so be careful not to delete the source fq.gz, this output is not a full copy, for v1 data an isalign.flag will be output to mark whether the seqID is aligned |
+| 1.Map | STAR mapping的输出路径 |
+| 2.Filter | 对STAR输出基因表达矩阵的质控过滤输出路径, 提取高质量细胞barcode, 也包含celltypist的标注结果 |
+| 3.scTE | scTE输出 csv.gz |
+| benchmark | 每个步骤详细的耗时及CPU占用, 若需要可以查看优化资源申请 |
+| log | 日志, 包含out和err两种, 记录标准输出和错误 |
 
 
-Column	Meaning	Notes
-tool	Tool name	Must match the default file; do not change
-path	Absolute path to the executable	Configure according to your system. When migrating environments, this file usually needs updating
-job.tsv & default.tsv – Job-parameter mapping
-Note:
-default.tsv supplies default values only when a key is missing in job.tsv.
-Only the parameters listed below as “Default configurable” can be set in default.tsv.
-
-
-Column	Meaning	Default configurable?
-Job	Job name; also used to name output files	—
-DataDir	Root directory of input files (convenience field; can be empty)	✅
-R1	Path to Read 1 file (barcode). If DataDir is set, becomes {DataDir}/{R1}	—
-R2	Path to Read 2 file (read). If DataDir is set, becomes {DataDir}/{R2}	—
-RU	Path to Read U file (UMI). If DataDir is set, becomes {DataDir}/{RU}	—
-Prefix	Ignored if R1, R2, RU are provided. Common prefix of reads; pipeline then expects {DataDir}/{Prefix}_[R1/R2/RU].{Postfix} (2–3 inputs)	—
-Postfix	Ignored if R1, R2, RU are provided. Common suffix/extension of reads	✅
-Platform	Sequencing platform. Allowed values: 10x3-v1, 10x3-v1.r3, 10x3-v2, 10x3-v3, 10x5, 10x5-v1, 10x5-v2	✅
-Tissue	Tissue type(s) for CellTypist annotation. Multiple tissues allowed, e.g. [bone_marrow, pbmc] or [bone_marrow pbmc] (comma or space delimiter). Must be valid keys in CellTypist’s tissue dictionary	✅
-RefGenome	Path to reference-genome directory	✅
-RefGenomeIndex	Path to the STAR genome index file	✅
-CellTypistModel	Path to the CellTypist model directory	✅
-OutDir	Root output directory for this job. Results are written to {OutDir}/{Job}	✅
-Memory	Memory limit (passed to any tool that supports it)	✅
-Thread	Number of threads/cores (passed to any tool that supports it)	✅
-CondaEnv	Path to the conda environment that supports sceasy Seurat → H5AD conversion	✅
-Description	Optional free-text description of the job	✅
-Outputs
-Output directory contents
-表格
-复制
-Directory	Description
-0.preFq	Pre-processing of FASTQs to harmonize v1 chemistry. If no special handling is required, symlinks (ln -s) are created instead of copies. Be careful not to delete source FASTQs—these are not full copies. For v1 data, an _isalign.flag file indicates whether SeqIDs are aligned
-1.Map	STAR alignment results
-2.Filter	QC & filtering of STAR gene-expression matrices. High-quality cell barcodes are retained. Also contains CellTypist annotation results
-3.scTE	scTE output files (csv.gz)
-benchmark	Per-step runtime and CPU-usage metrics. Useful for resource optimization
-log	Log files (.out and .err) capturing stdout and stderr
