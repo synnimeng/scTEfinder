@@ -7,7 +7,7 @@ This pipeline is designed to call TEs from a set of fq.gz reads.
 ### Environment
 
 Use the following commands to build the scTEfinder environment with Anaconda.
-For full details, see: (scTE-Conda.sh)
+For full details, see: [scTE-Conda.sh](https://github.com/synnimeng/scTEfinder/blob/main/scTE-Conda.sh)
 
 ```shell
 # create conda env
@@ -44,7 +44,7 @@ devtools::install_github('chris-mcginnis-ucsf/DoubletFinder')
 
 ### Running the pipeline
 
-Full execution instructions are in: (runSMK.sh)
+Full execution instructions are in: [runSMK.sh](https://github.com/synnimeng/scTEfinder/blob/main/runSMK.sh)
 
 ```shell
 conda activate scTEfinder
@@ -56,4 +56,5 @@ snakemake --config job=configs/test2.tsv -j 4
 
 ### Input, output, and configuration file overview
 
-Please refer to the documentation: (MANUAL.md)
+Please refer to the documentation: [MANUAL.md](https://github.com/synnimeng/scTEfinder/blob/main/MANUAL.md)
+
