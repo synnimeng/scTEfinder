@@ -6,8 +6,8 @@
 │ Filter.smk   2025/03/01/-17:17 
 ╰───────────────────────────────────────╯ 
 │ Description:
-    输入mapping后路径, 作 bam & gene expr 质控过滤
-""" # [By: HuYw]
+    After mapping, perform quality-control filtering on BAM files & gene-expression matrices
+""" # [By: Scripts-synni Meng, SMK-yiwen Hu]
 
 # region |- Import -|
 from types import SimpleNamespace
