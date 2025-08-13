@@ -58,3 +58,9 @@ snakemake --config job=configs/test2.tsv -j 4
 
 Please refer to the documentation: [MANUAL.md](https://github.com/synnimeng/scTEfinder/blob/main/MANUAL.md)
 
+### Additional notes:
+
+Large files in inputs and data are stored on Google Drive; please download and extract them locally with:
+tar -zxf *.tar.gz
+
+
