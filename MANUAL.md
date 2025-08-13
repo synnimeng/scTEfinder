@@ -37,7 +37,7 @@ job.tsv & default.tsv [Task parameter configuration items]
 
 _Note: The role of default.tsv is to fill in default values only when an item is missing in job.tsv; only the items listed below that can be configured with default parameters will take effect in default.tsv_
 
-| column | meaning | 是否可配置默认参数 |
+| column | meaning | can be configured as default parameter(default.tsv) |
 | --- | --- | --- |
 | Job | task name, also the name of the output files |  |
 | DataDir | root directory of input files, for convenience of configuration, can be empty | √ |
