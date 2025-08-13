@@ -7,7 +7,7 @@
 ╰───────────────────────────────────────╯ 
 │ Description:
     Perform cell-type annotation on an h5ad AnnData object
-""" # [By: ]
+""" # [By: Scripts-synni Meng, SMK-yiwen Hu]
 
 # region |- Import -|
 from types import SimpleNamespace
