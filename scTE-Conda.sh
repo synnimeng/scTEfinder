@@ -18,7 +18,7 @@ pip install snakemake==6 # / pip install snakemake==8
 pip install --upgrade pulp==2.7.0
 pip install celltypist
 
-# 一般 numpy > 2 和 scanpy 冲突, 更新
+# Usually, numpy > 2 conflicts with scanpy—upgrade/downgrade as needed
 pip install --upgrade 'numpy<2'
 
 # R
