@@ -1,4 +1,4 @@
-#!/xtdisk/jiangl_group/mengxini/software/anaconda3/envs/celltypist/bin/python
+#!/path/to/celltypist/python
 # -*- coding: UTF-8 -*-
 # # # # # # # # # # # # 
 """
@@ -7,7 +7,7 @@
 ╰───────────────────────────────────────╯ 
 │ Description:
     CellTypist Classify with trained model
-""" # [By: HuYw]
+""" # [By: Yiwen Hu]
 
 # region |- Tissue Only Celltype Dict -|
 LIMIT_TISSUE = {
@@ -49,7 +49,7 @@ LIMIT_TISSUE = {
 
 # region |- Import -|
 # from distutils import LooseVersion
-from contextlib import contextmanager   # 上下文管理器
+from contextlib import contextmanager  
 import celltypist
 from celltypist import models
 import scanpy as sc
@@ -65,9 +65,8 @@ import sklearn.metrics as metrics
 parser = argparse.ArgumentParser(description='CellTypist Classify with trained model')
 parser.add_argument('-i', '--input', type=str, help='Input unClassified h5ad path')
 parser.add_argument('-m', '--model', type=str, help='Trained Model path')
-# 允许多个tissue 输入，以","隔开
+# Allow multiple tissues as input, separated by commas
 parser.add_argument('-t', '--tissue', type=str, nargs="+", default=None, help='Tissue Limitation', required=False)
-# # 允许多个tissue 输入，以空格隔开
 # parser.add_argument('-t', '--tissue', type=str, nargs='+', default=None, help='Tissue Limitation', required=False)
 
 parser.add_argument('-o', '--output', type=str, help='Output Prefix')
@@ -84,7 +83,7 @@ print("Args:\n",
     f"Predict On: {args.input}\n",
     f"Output: {args.output}\n")
 
-# region |- 功能函数 -|
+# region |- Functions -|
 @contextmanager
 def Duration(name='Job-Name', unit='s'):
     """
@@ -95,95 +94,92 @@ def Duration(name='Job-Name', unit='s'):
     Returns:
 
     """
-    unit = unit.lower()[0]  # 小写第一位
+    unit = unit.lower()[0] 
     private_map = {'s': 1, 'm': 60, 'h': 3600}
     factor = private_map[unit]
-    t = time.time()  # 记录开始时间
-    yield t     # 上下文管理器返回的 as duration对象
+    t = time.time()  # record time
+    yield t     # time
     print(f"\n[ Elapsed time ] {name}：{(time.time()-t)/factor:.2f} {unit}")
 
 # endregion
 
 adata = sc.read_h5ad(args.input)
-# 不可是categories
 adata.var_names = adata.var_names.astype(str)
 
-# 检查是否是norm后数据
+# is data normalized ?
 if adata.X.max().is_integer():
     print("Preprocess data...")
-    # 未norm 进行标准norm
+    # norm
     sc.pp.normalize_total(adata, target_sum = 1e4)
     sc.pp.log1p(adata)
 else:
-    # 已norm 检查log1p
+    # check norm val
     exp_sum = adata.X.expm1().sum(axis = 1)
     if abs(exp_sum.mean() - 1e4) > 1 or exp_sum.var() > 0.1:
         raise ValueError('Input h5ad Counts is not normed with 1e4! Please use raw counts!')
 
 
 model = models.Model.load(model = args.model)
-# 若存在 tissue 输入, 取对应的 celltype
+# if tissue(s) are provided, use the corresponding cell types
 # allow_cates = LIMIT_TISSUE[args.tissue] if args.tissue else model.cell_types
 if args.tissue != None:
-    # 检查tissue 输入是否合法, 考虑shell 允许把 空格 输入作 '_'
+    # Validate tissue input, accounting for the shell replacing spaces with underscores
     allow_cates = []
     for tissue in args.tissue:
         tissue = tissue.lower().replace("_", " ")
         assert tissue in LIMIT_TISSUE.keys(), f"{tissue} is not in Tissue keys\n{LIMIT_TISSUE.keys()}"
-        allow_cates.extend(LIMIT_TISSUE.get(tissue, []))  # 使用 extend 方法
-    allow_cates = np.unique(allow_cates).tolist()  # 转换为列表
+        allow_cates.extend(LIMIT_TISSUE.get(tissue, []))  
+    allow_cates = np.unique(allow_cates).tolist() 
 else:
-    allow_cates = model.cell_types  # 若没有输入tissue，使用model中的所有细胞类型
+    allow_cates = model.cell_types  # If no tissue is provided, use all cell types available in the model
 
-# 检查这些指定的 celltype 确实都在模型可预测范围内
+# Ensure the specified cell types are within the model’s predictable set
 out_cates = set(allow_cates) - set(model.cell_types) 
 assert len(out_cates) == 0, f"Error: {out_cates} is not in model prediction celltypes set!"
 
 
 with Duration('Predict', unit='m'):
     predictions = celltypist.annotate(adata, model = model, majority_voting = False)
-    pred_scores = predictions.probability_matrix    # 置信分数 0~1, 单个cell 在不同celltype间 合为1
-    # 获取每行的最大值对应的列名
+    pred_scores = predictions.probability_matrix    # 	Confidence scores range 0–1; per cell, probabilities sum to 1 across cell types
+    # Assign the highest-probability cell type among the allowed ones
     adata.obs['predicted_labels'] = pred_scores[allow_cates].idxmax(axis=1) # 在允许被标注出的 细胞 上获得 最大概率的celltype
-    # 获取每行的最大值
+    # Assign the highest-probability cell type among the allowed ones
     max_scores = pred_scores[allow_cates].max(axis=1)
-    # 保存 predicted_labels 和对应score至csv
+    # Save predicted labels and their scores to CSV
     result_df = pd.DataFrame({
-        'predicted_labels': adata.obs['predicted_labels'],  # 预测的标签
-        'scores': max_scores  # 最大分数
-    }, index=adata.obs.index)  # 设置索引为细胞名
+        'predicted_labels': adata.obs['predicted_labels'],  # Predicted labels
+        'scores': max_scores  # Maximum scores
+    }, index=adata.obs.index)  # Set index to cell names
     result_df.to_csv(f"{args.output}.pred_labels_scores.csv", index=True)
-    # # 根据条件赋值：如果 max_scores < n_max，则将值替换为 "unassigned"
+    # # Conditionally assign: replace with "unassigned" if max_scores < n_max
     # n_max = 0.5
     # adata.obs['predicted_labels'] = adata.obs['predicted_labels'].where(max_scores >= n_max, "unassigned")
-
-    # 保存 limit celltype分值至csv | float_format='%.6f' 代表保留6位小数 
+    # Save limited cell-type scores to CSV; float_format='%.6f' keeps 6 decimal places
     pred_scores[allow_cates].to_csv(f"{args.output}.pred_limit_scores.csv", float_format='%.6f')
-    # 如果需要解锁下方注释
+    # Uncomment below if needed
     # pred_scores.to_csv(f"{args.output}.pred_scores.csv", float_format='%.6f')
-    # 预测分值 附加在 adata.uns 里 [如果不需要把下边2行注释掉]
-    adata.uns['pred_scores'] = pred_scores      # 全celltype分值
-    adata.uns['pred_limit_scores'] = adata.uns['pred_scores'][allow_cates]   # 仅在允许被标注出的 细胞 上的分值
+    # Attach prediction scores to adata.uns (comment out the next two lines if not needed)
+    adata.uns['pred_scores'] = pred_scores      # Full cell-type scores
+    adata.uns['pred_limit_scores'] = adata.uns['pred_scores'][allow_cates]   # Scores restricted to allowed cell types
     adata.obs["predicted_labels"].to_csv(f"{args.output}.pred_labels.csv")
 
 
 if args.detailed:
-    # pre compute
     if 'neighbors' not in adata.obsm: 
         print("compute hvg & neighbors...")
         sc.pp.highly_variable_genes(adata, n_top_genes=2000)
         sc.tl.pca(adata)
         sc.pp.neighbors(adata)
     print("Plot UMAP...")
-    # 绘制UMAP 及 HeatMap
+    # Plot UMAP and heatmap
     if 'X_umap' not in adata.obsm: sc.tl.umap(adata)
     colors = ('predicted_labels', args.label) if args.label else 'predicted_labels'
-    fig_umap = sc.pl.umap(adata, color = colors, return_fig=True, wspace=0.5)    # legend_loc = 'on data', # wspace [UMAP 横向间距]
+    fig_umap = sc.pl.umap(adata, color = colors, return_fig=True, wspace=0.5)    # legend_loc = 'on data', # wspace
     fig_umap.savefig(f"{args.output}.pred_umap.png", bbox_inches='tight', dpi=300)
     
-    # 将 pred_limit_scores 最大值添加到 adata.obs
+    # 	Add the max value of pred_limit_scores to adata.obs
     adata.obs['pred_limit_scores'] = adata.uns['pred_limit_scores'].max(axis=1)
-    fig_score = sc.pl.umap(adata, color = "pred_limit_scores", color_map='viridis', return_fig=True, wspace=0.5)    # legend_loc = 'on data', # wspace [UMAP 横向间距]
+    fig_score = sc.pl.umap(adata, color = "pred_limit_scores", color_map='viridis', return_fig=True, wspace=0.5)
     fig_score.savefig(f"{args.output}.pred_score_umap.png", bbox_inches='tight', dpi=300)
 
 
@@ -198,17 +194,6 @@ if args.label:
     f1 = round(100*metrics.f1_score(targ, pred, average='macro'), 2),  # f1 macro
     pd.DataFrame({'Accuracy': acc, 'F1-Macro': f1}, index=[0]).to_csv(f"{args.output}.metrics.csv", index=False, sep='\t')
 
-
-# 这个快, 画一画检查数据质量, 来判断标注是否可信
-#print("Plot Marker QC...")
-#top_markers = {cate: model.extract_top_markers(cate, args.nmarkers) for cate in sorted(model.cell_types)}   # 排序model.cell_types 对齐绘图
-#fig_markers = sc.pl.dotplot(adata, top_markers, groupby='predicted_labels', dendrogram=False, return_fig=True)
-#fig_markers.savefig(f"{args.output}.markers.png", bbox_inches='tight', dpi=300)
-# limit cates markers
-#if args.tissue:
-#    top_markers = {cate: model.extract_top_markers(cate, args.nmarkers) for cate in sorted(adata.obs['predicted_labels'].unique().tolist())} # 排序
-#    fig_markers = sc.pl.dotplot(adata, top_markers, groupby='predicted_labels', dendrogram=False, return_fig=True)
-#    fig_markers.savefig(f"{args.output}.markers_limit.png", bbox_inches='tight', dpi=300)
 
 
 print("Predict adata Success.")
