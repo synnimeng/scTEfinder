@@ -7,7 +7,7 @@
 ╰───────────────────────────────────────╯ 
 │ Description:
     Transfer 10x-v1 pattern like [R1: [Barcode]{repeat}, R2: [Reads][UMI]{repeat}] for STAR inputs
-""" # [By: HuYw]
+""" # [By: Synni Meng & yiwen Hu]
 
 # region |- Import -|
 from time import time
@@ -109,7 +109,7 @@ if __name__ == '__main__':
     jobR2 = args.OutRead2[::-1].split('.', maxsplit=1)[-1][::-1]
     # counts in 30s
     nRecord = sum(True for _ in gzip.open(args.Read1, 'rt'))//4
-    gapRecord = 100000    # 间隔提交时间大概能处理这么多
+    gapRecord = 100000   # Interval roughly corresponding to processing capacity
     n_gap = round(args.nThread/2*(args.nThread+1))
     avgRecord = (nRecord-gapRecord*n_gap)//args.nThread
     job_pp = 0
@@ -133,11 +133,11 @@ if __name__ == '__main__':
                                 start=P[0], n_record=P[1], 
                                 jobname=f"Chunk {i}") 
                                 for i, P in enumerate(jobRegions)]
-        # 等待所有任务完成，并收集结果
+        # Wait for all tasks to complete and collect results
         results = []
         for job in futures.as_completed(jobs):
             try:
-                result = job.result()  # 获取任务结果
+                result = job.result()  # obtain task result
                 results.append(result)
                 print(f"Result: {result}")
             except Exception as e:
