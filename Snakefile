@@ -7,7 +7,7 @@
 ╰───────────────────────────────────────╯ 
 │ Description:
     Whole pipeline from FASTQ → TE analysis, supports modular execution
-""" # [By: ]
+""" # [By: Scripts-synni Meng, SMK-yiwen Hu]
 
 # region |- Import -|
 from types import SimpleNamespace
