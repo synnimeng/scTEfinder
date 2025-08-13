@@ -6,8 +6,8 @@
 │ Anno.smk   2025/03/04/-17:37 
 ╰───────────────────────────────────────╯ 
 │ Description:
-    对 h5ad AnnData 执行 细胞类型 注释
-""" # [By: HuYw]
+    Perform cell-type annotation on an h5ad AnnData object
+""" # [By: ]
 
 # region |- Import -|
 from types import SimpleNamespace
