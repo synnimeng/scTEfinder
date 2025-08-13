@@ -21,11 +21,11 @@ Directory function description of this project
 
 ## Configs
 
-配置文件编写说明
+Configuration file writing instructions
 
 ---
 
-tools.tsv [工具文件配置项]
+tools.tsv [Tool file configuration items]
 | column | meaning | others |
 | --- | --- | --- |
 | tool | tool name | must be consistent with the default "tools.tsv" file, cannot be changed |
