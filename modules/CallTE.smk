@@ -6,8 +6,8 @@
 │ CallTE.smk   2025/03/03/-12:35 
 ╰───────────────────────────────────────╯ 
 │ Description:
-    输入bam, 进行 call TE, 生成TE数据
-""" # [By: HuYw]
+    Input BAM file, call transposable elements (TEs) and generate TE data
+""" # [By: Scripts-synni Meng, SMK-yiwen Hu]
 
 # region |- Import -|
 from types import SimpleNamespace
@@ -35,14 +35,14 @@ rule CallscTE:
         refGenomeIndex = lambda wildcards: Q.getjob(wildcards.job).RefGenomeIndex,
         platform = lambda wildcards: Q.getjob(wildcards.job).Platform,
         thread = lambda wildcards: Q.getjob(wildcards.job).Thread,
-        expectCellN = 20000,    # 期待获取细胞量
+        expectCellN = 20000,    # Expected number of cells to recover
     message:
         """
         CallTE by scTE for Job:{wildcards.job} {params.platform}.
         """
     shell:
         """
-        cd {params.outdir}  # 必须 cd, 否则会输出至当前文件夹
+        cd {params.outdir}  # do cd; otherwise output will be placed in the current directory
         {T.scTE} -p {params.thread} -x {params.refGenomeIndex} \
         -i {input.Bam} \
         -o {params.TEprefix} \
