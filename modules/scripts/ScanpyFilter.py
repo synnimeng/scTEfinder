@@ -7,7 +7,7 @@
 ╰───────────────────────────────────────╯ 
 │ Description:
     
-""" # [By: HuYw]
+""" # [By: Synni Meng & Yiwen Hu]
 
 # region |- Import -|
 import scanpy as sc
