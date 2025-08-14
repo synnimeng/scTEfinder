@@ -4,6 +4,8 @@ __(snakemake pipeline)__
 
 This pipeline is designed to call TEs from a set of fq.gz reads.
 
+(https://github.com/synnimeng/scTEfinder/blob/main/imgs/pipeline.png)
+
 ### Environment
 
 Use the following commands to build the scTEfinder environment with Anaconda.
@@ -65,5 +67,6 @@ Large files in inputs and data are stored on Google Drive; please download and e
 ```shell
 tar -zxf *.tar.gz
 ```
+
 
 
