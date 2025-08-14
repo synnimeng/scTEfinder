@@ -4,7 +4,7 @@ __(snakemake pipeline)__
 
 This pipeline is designed to call TEs from a set of fq.gz reads.
 
-![Pipeline](https://github.com/synnimeng/scTEfinder/blob/main/imgs/pipeline.png)
+![Pipeline](https://github.com/synnimeng/scTEfinder/blob/main/imgs/pipeline.png "scTEfinder Pipeline")
 
 ### Environment
 
@@ -67,6 +67,7 @@ Large files in inputs and data are stored on Google Drive; please download and e
 ```shell
 tar -zxf *.tar.gz
 ```
+
 
 
 
