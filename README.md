@@ -17,7 +17,7 @@ conda create -n scTEfinder 'python=3.9' \
  bioconda::scrublet \
  bioconda::seqkit bioconda::star \
  bioconda::bedtools bioconda::samtools \
- conda-forge::r-seurat \
+ conda-forge::r-seurat conda-forge::r-devtools \
  conda-forge::r-haven conda-forge::r-tidyverse conda-forge::r-argparse -y
 
 # python libs
@@ -67,6 +67,7 @@ Large files in inputs and data are stored on Google Drive; please download and e
 ```shell
 tar -zxf *.tar.gz
 ```
+
 
 
 
