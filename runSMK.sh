@@ -15,8 +15,8 @@ SMK='/path/to/snakemake'
 
 # Run the pipeline  
 # -j 2 means allow at most 2 concurrent jobs; adjust according to resource limits
-$SMK --config job=configs/test2.tsv -j 2 --unlock
-$SMK --config job=configs/test2.tsv -j 2
+$SMK --config job=configs/demo.tsv -j 2 --unlock
+$SMK --config job=configs/demo.tsv -j 2
 
 # List all available pipeline target rules
 # $SMK --config job=configs/demo.tsv --list-target-rules
