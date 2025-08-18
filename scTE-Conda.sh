@@ -10,7 +10,7 @@ conda create -n scTEfinder 'python=3.9' \
 conda activate scTEfinder
 TE_ENV=$(conda info --envs | grep '*' | awk '{print $3}')
 export LD_LIBRARY_PATH="${TE_ENV}/lib:$LD_LIBRARY_PATH"
-#pip install scte
+pip install scte
 pip install scanpy
 pip install scrublet
 pip install cython
