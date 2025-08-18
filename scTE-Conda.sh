@@ -31,7 +31,7 @@ https://github.com/kehrlab/bcsubset/blob/main/README.md
 # Error 1:  unrecognized command line option ‘-std=c++14’
 # Error 3:  /lib64/libstdc++.so.6: version `GLIBCXX_3.4.30' not found (required by ./bcsubset)
 << EOF
-conda activate te
+conda activate scTEfinder 
 # Error1
 conda install -c conda-forge gcc_linux-64 gxx_linux-64
 conda install zlib
