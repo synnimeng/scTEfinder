@@ -29,7 +29,7 @@ devtools::install_github('chris-mcginnis-ucsf/DoubletFinder')
 # bc-subset [INSTALL TUTORIAL]
 https://github.com/kehrlab/bcsubset/blob/main/README.md
 # Error 1:  unrecognized command line option ‘-std=c++14’
-# Error 3:  /lib64/libstdc++.so.6: version `GLIBCXX_3.4.30' not found (required by ./bcsubset)
+# Error 2:  /lib64/libstdc++.so.6: version `GLIBCXX_3.4.30' not found (required by ./bcsubset)
 << EOF
 conda activate scTEfinder 
 # Error1
