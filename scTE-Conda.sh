@@ -3,7 +3,7 @@ conda create -n scTEfinder 'python=3.9' \
  hcc::aspera-cli bioconda::scrublet \
  bioconda::seqkit bioconda::star \
  bioconda::bedtools bioconda::samtools \
- conda-forge::r-seurat bioconda::r-archr \
+ conda-forge::r-seurat conda-forge::r-devtools bioconda::r-archr \
  conda-forge::r-haven conda-forge::r-tidyverse conda-forge::r-argparse -y
 
 
