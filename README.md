@@ -53,7 +53,7 @@ conda activate scTEfinder
 # cd /path/to/scTEfinder
 
 # run demo pipeline
-snakemake --config job=configs/test2.tsv -j 4
+snakemake --config job=configs/demo.tsv -j 4
 ```
 
 ### Input, output, and configuration file overview
@@ -67,6 +67,7 @@ Large files in inputs and data are stored on Google Drive; please download and e
 ```shell
 tar -zxf *.tar.gz
 ```
+
 
 
 
