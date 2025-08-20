@@ -21,4 +21,4 @@ After you download the .tar.gz package from the URL, unpack it and reorganize th
     ├── 737K-august-2016.txt
     └── whitelist.md
 ```
-Note: you can install softwares at other path, you just need update the config of "tool.tsv" to regist bcsubset / scTE
+Note: you can install softwares at other path, you just need update the config of "configs/tools.tsv" to regist bcsubset / scTE
