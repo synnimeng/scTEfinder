@@ -23,7 +23,7 @@ $SMK --config job=configs/demo.tsv -j 2
 
 #<<EOF
 # Run only the "RunAnnoOnly" rule, forcing refresh of existing outputs
-#$SMK --config job=configs/demo.tsv -j 3 --dryrun --allowed-rules RunAnnoOnly
+#$SMK --config job=configs/demo.tsv -j 3 --dryrun RunAnnoOnly
 
 # Snakemake considers only file timestamps; code changes do not trigger re-run
 #$SMK --config job=configs/demo.tsv -j 3 --dryrun --rerun-triggers mtime
