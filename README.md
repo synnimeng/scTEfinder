@@ -7,6 +7,7 @@ __(snakemake pipeline)__
 This pipeline is designed to call TEs from a set of fq.gz reads.
 
 ![Pipeline](https://github.com/synnimeng/scTEfinder/blob/main/imgs/pipeline.png "scTEfinder Pipeline")
+<br/>
 
 ### Environment
 
@@ -45,7 +46,7 @@ Additional R packages required:
 devtools::install_github("cellgeni/sceasy")
 devtools::install_github('chris-mcginnis-ucsf/DoubletFinder')
 ```
-
+<br/>
 
 ### Running the pipeline
 
@@ -58,12 +59,12 @@ conda activate scTEfinder
 # run demo pipeline
 snakemake --config job=configs/demo.tsv -j 4
 ```
-
+<br/>
 
 ### Input, output, and configuration file overview
 
 Please refer to the documentation: [MANUAL.md](https://github.com/synnimeng/scTEfinder/blob/main/MANUAL.md)
-
+<br/>
 
 ### Additional notes
 
@@ -72,6 +73,7 @@ Large files in inputs and data are stored on Google Drive; please download and e
 ```shell
 tar -zxf *.tar.gz
 ```
+
 
 
 
