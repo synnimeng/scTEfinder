@@ -3,7 +3,13 @@
 
 # scTEfinder 
 
-ScTEfinder is a robust and standardized pipeline designed for accurate TE subfamily quantification from raw scRNA-seq data. Built upon the foundation of the scTE toolkit, scTEfinder processes data from FASTQ files through three core modules: read mapping, quality control (QC), and TE quantification. Specifically, it aligns reads to the reference genome, keeps multi-mapped reads to capture TEs, filters BAM files based on cell QC, and counts TEs at the subfamily level. scTEfinder outputs a combined gene-TE count matrix that can be directly used in standard downstream analyses in Seurat (R) or Scanpy (Python).
+scTEfinder processes data from FASTQ files through three core modules: 
+* Read mapping,
+* Quality control (QC),
+* TE quantification.
+
+Specifically, it aligns reads to the reference genome, keeps multi-mapped reads to capture TEs, filters BAM files based on cell QC, and counts TEs at the subfamily level. 
+scTEfinder outputs a combined gene-TE count matrix that can be directly used in standard downstream analyses in Seurat (R) or Scanpy (Python).
 
 ![Pipeline](https://github.com/synnimeng/scTEfinder/blob/main/imgs/pipeline.png "scTEfinder Pipeline") 
 
@@ -75,6 +81,7 @@ Large files in inputs and data are stored on Google Drive; please download and e
 ```shell
 tar -zxf *.tar.gz
 ```
+
 
 
 
