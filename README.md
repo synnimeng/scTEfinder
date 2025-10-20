@@ -1,4 +1,8 @@
-[![DOI](https://zenodo.org/badge/1010980213.svg)](https://doi.org/10.5281/zenodo.17396260)
+[![DOI](https://zenodo.org/badge/1010980213.svg)](https://doi.org/10.5281/zenodo.17396260
+        
+        
+        
+        )
 
 # scTEfinder 
 __(snakemake pipeline)__
@@ -45,6 +49,7 @@ devtools::install_github("cellgeni/sceasy")
 devtools::install_github('chris-mcginnis-ucsf/DoubletFinder')
 ```
 
+
 ### Running the pipeline
 
 Full execution instructions are in: [runSMK.sh](https://github.com/synnimeng/scTEfinder/blob/main/runSMK.sh)
@@ -57,17 +62,20 @@ conda activate scTEfinder
 snakemake --config job=configs/demo.tsv -j 4
 ```
 
+
 ### Input, output, and configuration file overview
 
 Please refer to the documentation: [MANUAL.md](https://github.com/synnimeng/scTEfinder/blob/main/MANUAL.md)
 
-### Additional notes:
+
+### Additional notes
 
 Large files in inputs and data are stored on Google Drive; please download and extract them locally with:
 
 ```shell
 tar -zxf *.tar.gz
 ```
+
 
 
 
