@@ -17,7 +17,7 @@ scTEfinder outputs a combined gene-TE count matrix that can be directly used in 
 
 __We further recommend DeepWiki to support the automated production of AI documents, facilitating your in-depth understanding and utilization__
 
-[Tutorial Documents](https://deepwiki.com/synnimeng/scTEfinder)
+[DeepWiki Tutorial Documents](https://deepwiki.com/synnimeng/scTEfinder)
 
 
 Here, we present the snakemake implementation of scTEfinder for TE quantification from a set of fq.gz reads.
@@ -88,6 +88,7 @@ Large files in inputs and data are stored on Google Drive; please download and e
 ```shell
 tar -zxf *.tar.gz
 ```
+
 
 
 
