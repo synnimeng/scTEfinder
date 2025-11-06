@@ -1,4 +1,10 @@
-[![DOI](https://zenodo.org/badge/1010980213.svg)](https://doi.org/10.5281/zenodo.17396260)
+[![DOI](https://zenodo.org/badge/1010980213.svg)](https://doi.org/10.5281/zenodo.17396260
+        
+        
+        
+        
+        
+        )
 
 
 # scTEfinder 
@@ -14,6 +20,10 @@ Specifically, it aligns reads to the reference genome, keeps multi-mapped reads 
 scTEfinder outputs a combined gene-TE count matrix that can be directly used in standard downstream analyses in Seurat (R) or Scanpy (Python).
 
 ![Pipeline](https://github.com/synnimeng/scTEfinder/blob/main/imgs/pipeline.png "scTEfinder Pipeline") 
+
+We further recommend DeepWiki to support the automated production of AI documents, facilitating your in-depth understanding and utilization
+![Tutorial Documents](https://deepwiki.com/synnimeng/scTEfinder)
+
 
 Here, we present the snakemake implementation of scTEfinder for TE quantification from a set of fq.gz reads.
 <br/>
@@ -83,6 +93,7 @@ Large files in inputs and data are stored on Google Drive; please download and e
 ```shell
 tar -zxf *.tar.gz
 ```
+
 
 
 
