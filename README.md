@@ -1,10 +1,4 @@
-[![DOI](https://zenodo.org/badge/1010980213.svg)](https://doi.org/10.5281/zenodo.17396260
-        
-        
-        
-        
-        
-        )
+[![DOI](https://zenodo.org/badge/1010980213.svg)](https://doi.org/10.5281/zenodo.17396260)
 
 
 # scTEfinder 
@@ -21,7 +15,8 @@ scTEfinder outputs a combined gene-TE count matrix that can be directly used in 
 
 ![Pipeline](https://github.com/synnimeng/scTEfinder/blob/main/imgs/pipeline.png "scTEfinder Pipeline") 
 
-We further recommend DeepWiki to support the automated production of AI documents, facilitating your in-depth understanding and utilization
+__We further recommend DeepWiki to support the automated production of AI documents, facilitating your in-depth understanding and utilization__
+
 ![Tutorial Documents](https://deepwiki.com/synnimeng/scTEfinder)
 
 
@@ -93,6 +88,7 @@ Large files in inputs and data are stored on Google Drive; please download and e
 ```shell
 tar -zxf *.tar.gz
 ```
+
 
 
 
