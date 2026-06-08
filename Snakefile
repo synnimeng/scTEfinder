@@ -67,6 +67,14 @@ rule RunFilterOnly:
         "[Main] Run Filter Only Pipeline start..."
 
 
+
+rule RunToTE:
+    input:
+        expand("{outdir}/{job}/3.scTE/{job}.csv.gz", zip, outdir=Q['OutDir'], job=Q['Job']),
+    message:
+        "[Main] Run To TE csv.gz output"
+
+
 rule RunAnnoOnly:
     input:
         expand("{outdir}/{job}/2.Filter/{job}.pred_labels.csv", zip, outdir=Q['OutDir'], job=Q['Job']),
