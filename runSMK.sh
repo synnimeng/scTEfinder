@@ -18,6 +18,10 @@ SMK='/path/to/snakemake'
 $SMK --config job=configs/demo.tsv -j 2 --unlock
 $SMK --config job=configs/demo.tsv -j 2
 
+# only to TE
+$SMK RunToTE --config job=configs/demo.tsv -j 2 
+
+
 # List all available pipeline target rules
 # $SMK --config job=configs/demo.tsv --list-target-rules
 
