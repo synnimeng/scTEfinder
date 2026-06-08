@@ -19,7 +19,7 @@ $SMK --config job=configs/demo.tsv -j 2 --unlock
 $SMK --config job=configs/demo.tsv -j 2
 
 # only to TE
-$SMK RunToTE --config job=configs/demo.tsv -j 2 
+$SMK --config job=configs/demo.tsv -j 2 RunToTE
 
 
 # List all available pipeline target rules
